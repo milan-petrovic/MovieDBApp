@@ -16,7 +16,7 @@ public class PopularModel {
     @SerializedName("total_pages")
     @Expose
     private Integer totalPages;
-    @SerializedName("popularResults")
+    @SerializedName("results")
     @Expose
     private List<PopularResult> popularResults = null;
 

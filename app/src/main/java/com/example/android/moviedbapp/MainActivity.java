@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.example.android.moviedbapp.popular.MovieAdapter;
+import com.example.android.moviedbapp.popular.PopularMovieAdapter;
 import com.example.android.moviedbapp.popular.PopularModel;
 import com.example.android.moviedbapp.popular.PopularResult;
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 for(PopularResult popularResult : moviePopularResults) {
                     Log.d("TAG", popularResult.getTitle());
                 }
-                adapter = new MovieAdapter(moviePopularResults);
+                adapter = new PopularMovieAdapter(moviePopularResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
             }
