@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="4dp">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/rlImage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/description">
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp" />
 
-            <ImageView
-                android:id="@+id/poster"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" />
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_toRightOf="@id/rlImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@id/poster"
                 android:text="Movie title"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 
@@ -39,67 +39,36 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="2"
-                android:ellipsize="end"
                 android:layout_below="@id/movieTitle"
-                android:layout_toRightOf="@id/poster"
+                android:ellipsize="end"
+                android:lines="2"
                 android:paddingRight="16dp"
                 android:text="Description" />
+
             <TextView
+                android:id="@+id/rDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rDate"
                 android:layout_below="@id/description"
-                android:layout_toRightOf="@id/poster"
-                android:text="Release Date"/>
+                android:gravity="center"
+                android:text="Release Date" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/relLayout"
-                android:layout_below="@id/description"
-                android:layout_alignParentRight="true"
-                >
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/voteCount"
-                android:text="vote count"
-                android:gravity="center"
-                android:drawableLeft="@drawable/ic_people_black_24dp"
-                android:drawablePadding="4dp"/>
+                android:layout_below="@id/description"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/voteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_people_black_24dp"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="vote count" />
             </RelativeLayout>
+    </RelativeLayout>
 
-
-            <!--<TextView-->
-                <!--android:id="@+id/resDate"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignBottom="@id/poster"-->
-                <!--android:layout_toRightOf="@id/poster"-->
-                <!--android:text="Release date" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/voteCount"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/genre"-->
-                <!--android:layout_toRightOf="@id/resDate"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:text="Vote count" />-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="10dp"-->
-                <!--android:layout_height="10dp"-->
-                <!--android:layout_below="@id/genre"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_toRightOf="@id/releaseDate"-->
-                <!--android:id="@+id/imgCount"-->
-                <!--android:src="@drawable/counter" />-->
-
-
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+</RelativeLayout>

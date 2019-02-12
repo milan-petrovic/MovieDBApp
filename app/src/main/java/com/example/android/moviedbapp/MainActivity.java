@@ -49,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 List<PopularResult> moviePopularResults = response.body().getPopularResults();
-                for(PopularResult popularResult : moviePopularResults) {
-                    Log.d("TAG", popularResult.getTitle());
-                }
+
                 adapter = new PopularMovieAdapter(moviePopularResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);

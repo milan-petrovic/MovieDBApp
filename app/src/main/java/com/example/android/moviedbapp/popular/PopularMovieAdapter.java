@@ -19,7 +19,6 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
 
     private List<PopularResult> popularResultList;
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        public CardView cardView;
         public ImageView imgPoster;
         public TextView txtTitle;
         public TextView txtDescription;
@@ -27,7 +26,6 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         public TextView txtVoteCount;
         public MovieViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView)itemView.findViewById(R.id.cv);
             txtTitle = (TextView)itemView.findViewById(R.id.movieTitle);
             txtReleaseDate = (TextView)itemView.findViewById(R.id.rDate);
             txtDescription = (TextView)itemView.findViewById(R.id.description);
@@ -57,7 +55,7 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         movieViewHolder.txtReleaseDate.setText(popularResult.getReleaseDate());
         movieViewHolder.txtVoteCount.setText(String.valueOf(popularResult.getVoteCount()));
         String imageUrl="https://image.tmdb.org/t/p/w500/" + popularResult.getPosterPath();
-        Picasso.get().load(imageUrl).into(movieViewHolder.imgPoster);
+        Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
     }
 
     @Override
