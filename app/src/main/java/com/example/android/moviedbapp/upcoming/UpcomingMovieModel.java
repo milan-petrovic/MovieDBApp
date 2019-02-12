@@ -1,24 +1,35 @@
 
-package com.example.android.moviedbapp.top_rated;
+package com.example.android.moviedbapp.upcoming;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopRatedModel {
+public class UpcomingMovieModel {
 
+    @SerializedName("results")
+    @Expose
+    private List<UpcomingResult> results = null;
     @SerializedName("page")
     @Expose
     private Integer page;
     @SerializedName("total_results")
     @Expose
     private Integer totalResults;
+    @SerializedName("dates")
+    @Expose
+    private Dates dates;
     @SerializedName("total_pages")
     @Expose
     private Integer totalPages;
-    @SerializedName("results")
-    @Expose
-    private List<TopRatedResult> topRatedResults = null;
+
+    public List<UpcomingResult> getResults() {
+        return results;
+    }
+
+    public void setResults(List<UpcomingResult> results) {
+        this.results = results;
+    }
 
     public Integer getPage() {
         return page;
@@ -36,20 +47,20 @@ public class TopRatedModel {
         this.totalResults = totalResults;
     }
 
+    public Dates getDates() {
+        return dates;
+    }
+
+    public void setDates(Dates dates) {
+        this.dates = dates;
+    }
+
     public Integer getTotalPages() {
         return totalPages;
     }
 
     public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
-    }
-
-    public List<TopRatedResult> getTopRatedResults() {
-        return topRatedResults;
-    }
-
-    public void setTopRatedResults(List<TopRatedResult> topRatedResults) {
-        this.topRatedResults = topRatedResults;
     }
 
 }

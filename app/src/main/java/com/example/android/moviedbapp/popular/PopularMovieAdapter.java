@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.android.moviedbapp.R;
+import com.example.android.moviedbapp.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,7 +52,8 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         PopularResult popularResult = popularResultList.get(i);
         movieViewHolder.txtTitle.setText(popularResult.getTitle());
         movieViewHolder.txtDescription.setText(popularResult.getOverview());
-        movieViewHolder.txtReleaseDate.setText(popularResult.getReleaseDate());
+        String date = Util.getYearFromDate(popularResult.getReleaseDate());
+        movieViewHolder.txtReleaseDate.setText(date);
         movieViewHolder.txtVoteCount.setText(String.valueOf(popularResult.getVoteCount()));
         String imageUrl="https://image.tmdb.org/t/p/w500/" + popularResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);

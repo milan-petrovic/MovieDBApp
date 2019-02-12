@@ -52,10 +52,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/trDescription"
             android:gravity="center"
+            android:paddingTop="20dp"
             android:text="Release Date" />
 
         <RelativeLayout
             android:id="@+id/relLayout"
+            android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trDescription"

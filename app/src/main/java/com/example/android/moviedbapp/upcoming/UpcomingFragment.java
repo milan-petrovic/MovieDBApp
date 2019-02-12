@@ -1,4 +1,4 @@
-package com.example.android.moviedbapp.top_rated;
+package com.example.android.moviedbapp.upcoming;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,49 +21,51 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TopRatedFragment extends Fragment {
+public class UpcomingFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     View v;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.upcoming_fragment, container, false);
+        recyclerView = v.findViewById(R.id.upRecycleView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        return  v;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
-        Call<TopRatedModel> call = movieApiHandler.getTopRated();
-        call.enqueue(new Callback<TopRatedModel>() {
+        Call<UpcomingMovieModel> call = movieApiHandler.getUpcomingMovies();
+        call.enqueue(new Callback<UpcomingMovieModel>() {
             @Override
-            public void onResponse(Call<TopRatedModel> call, Response<TopRatedModel> response) {
+            public void onResponse(Call<UpcomingMovieModel> call, Response<UpcomingMovieModel> response) {
                 if (!response.isSuccessful()) {
                     return;
                 }
-                List<TopRatedResult> topRatedTopRatedResults = response.body().getTopRatedResults();
-                adapter = new TopRatedMovieAdapter(topRatedTopRatedResults);
+                List<UpcomingResult> upcomingResults = response.body().getResults();
+                adapter = new UpcomingMovieAdapter(upcomingResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+
             }
 
             @Override
-            public void onFailure(Call<TopRatedModel> call, Throwable t) {
+            public void onFailure(Call<UpcomingMovieModel> call, Throwable t) {
                 t.printStackTrace();
             }
         });
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.top_rated_fragment, container, false);
-        recyclerView = v.findViewById(R.id.trRecycleView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
-        return  v;
     }
 }

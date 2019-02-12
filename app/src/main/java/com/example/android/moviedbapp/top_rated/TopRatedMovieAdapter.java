@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.moviedbapp.R;
+import com.example.android.moviedbapp.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
 
 
 
-    private List<Result> topRatedResults;
+    private List<TopRatedResult> topRatedTopRatedResults;
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         public TextView txtTitle;
@@ -35,8 +36,8 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         }
     }
 
-    public TopRatedMovieAdapter(List<Result> topRatedResults) {
-        this.topRatedResults = topRatedResults;
+    public TopRatedMovieAdapter(List<TopRatedResult> topRatedTopRatedResults) {
+        this.topRatedTopRatedResults = topRatedTopRatedResults;
     }
 
     @NonNull
@@ -49,18 +50,19 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        Result result = topRatedResults.get(i);
-        movieViewHolder.txtTitle.setText(result.getTitle());
-        movieViewHolder.txtReleaseDate.setText(result.getReleaseDate());
-        movieViewHolder.txtCountAverage.setText(String.valueOf(result.getVoteAverage()));
-        movieViewHolder.txtDescription.setText(result.getOverview());
-        String imageUrl="https://image.tmdb.org/t/p/w500/" + result.getPosterPath();
+        TopRatedResult topRatedResult = topRatedTopRatedResults.get(i);
+        movieViewHolder.txtTitle.setText(topRatedResult.getTitle());
+        String date = Util.getYearFromDate(topRatedResult.getReleaseDate());
+        movieViewHolder.txtReleaseDate.setText(date);
+        movieViewHolder.txtCountAverage.setText(String.valueOf(topRatedResult.getVoteAverage()));
+        movieViewHolder.txtDescription.setText(topRatedResult.getOverview());
+        String imageUrl="https://image.tmdb.org/t/p/w500/" + topRatedResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
     }
 
     @Override
     public int getItemCount() {
-        return topRatedResults.size();
+        return topRatedTopRatedResults.size();
     }
 }

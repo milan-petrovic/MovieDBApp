@@ -13,6 +13,7 @@ import com.example.android.moviedbapp.popular.PopularMovieAdapter;
 import com.example.android.moviedbapp.popular.PopularModel;
 import com.example.android.moviedbapp.popular.PopularResult;
 import com.example.android.moviedbapp.top_rated.TopRatedFragment;
+import com.example.android.moviedbapp.upcoming.UpcomingFragment;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new PopularFragment(), "Popular");
         viewPagerAdapter.addFragment(new TopRatedFragment(), "Top rated");
+        viewPagerAdapter.addFragment(new UpcomingFragment(), "Upcoming");
 
 
         viewPager.setAdapter(viewPagerAdapter);
