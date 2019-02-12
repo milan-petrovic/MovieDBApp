@@ -1,11 +1,11 @@
 
-package com.example.android.moviedbapp;
+package com.example.android.moviedbapp.popular;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieResponse {
+public class PopularModel {
 
     @SerializedName("page")
     @Expose
@@ -16,9 +16,9 @@ public class MovieResponse {
     @SerializedName("total_pages")
     @Expose
     private Integer totalPages;
-    @SerializedName("results")
+    @SerializedName("popularResults")
     @Expose
-    private List<Result> results = null;
+    private List<PopularResult> popularResults = null;
 
     public Integer getPage() {
         return page;
@@ -44,12 +44,12 @@ public class MovieResponse {
         this.totalPages = totalPages;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public List<PopularResult> getPopularResults() {
+        return popularResults;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setPopularResults(List<PopularResult> popularResults) {
+        this.popularResults = popularResults;
     }
 
 }

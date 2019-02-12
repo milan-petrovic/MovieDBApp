@@ -1,11 +1,11 @@
 
-package com.example.android.moviedbapp;
+package com.example.android.moviedbapp.popular;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class PopularResult {
 
     @SerializedName("vote_count")
     @Expose
