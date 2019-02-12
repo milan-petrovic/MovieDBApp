@@ -1,11 +1,14 @@
 package com.example.android.moviedbapp;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.example.android.moviedbapp.popular.PopularFragment;
 import com.example.android.moviedbapp.popular.PopularMovieAdapter;
 import com.example.android.moviedbapp.popular.PopularModel;
 import com.example.android.moviedbapp.popular.PopularResult;
@@ -20,9 +23,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager layoutManager;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
+
 
 
     @Override
@@ -30,35 +34,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycleView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(MainActivity.this);
+        tabLayout = (TabLayout)findViewById(R.id.tablayoutId);
+        viewPager = (ViewPager)findViewById(R.id.viewPagerId);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+        //Add fragments
 
-        MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new PopularFragment(), "Popular");
+        viewPagerAdapter.addFragment(new PopularFragment(), "Top rated");
 
-        Call<PopularModel> call = movieApiHandler.getTopMovies();
-        call.enqueue(new Callback<PopularModel>() {
-            @Override
-            public void onResponse(Call<PopularModel> call, Response<PopularModel> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-                List<PopularResult> moviePopularResults = response.body().getPopularResults();
 
-                adapter = new PopularMovieAdapter(moviePopularResults);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(layoutManager);
-            }
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-            @Override
-            public void onFailure(Call<PopularModel> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+
+
     }
 }
