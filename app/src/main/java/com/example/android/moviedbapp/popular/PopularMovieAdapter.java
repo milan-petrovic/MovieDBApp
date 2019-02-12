@@ -1,7 +1,6 @@
 package com.example.android.moviedbapp.popular;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.popular_cardview, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.popular_item, viewGroup, false);
         MovieViewHolder mvh = new MovieViewHolder(v);
         return  mvh;
     }

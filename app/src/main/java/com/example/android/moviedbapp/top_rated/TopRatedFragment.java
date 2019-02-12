@@ -1,4 +1,4 @@
-package com.example.android.moviedbapp.popular;
+package com.example.android.moviedbapp.top_rated;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,51 +21,51 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PopularFragment extends Fragment {
+public class TopRatedFragment extends Fragment {
+
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     View v;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
-
-        Call<PopularModel> call = movieApiHandler.getPopularMovies();
-        call.enqueue(new Callback<PopularModel>() {
+        Call<TopRatedModel> call = movieApiHandler.getTopRated();
+        call.enqueue(new Callback<TopRatedModel>() {
             @Override
-            public void onResponse(Call<PopularModel> call, Response<PopularModel> response) {
+            public void onResponse(Call<TopRatedModel> call, Response<TopRatedModel> response) {
                 if (!response.isSuccessful()) {
                     return;
                 }
-                List<PopularResult> moviePopularResults = response.body().getPopularResults();
-
-                adapter = new PopularMovieAdapter(moviePopularResults);
+                List<Result> topRatedResults = response.body().getResults();
+                adapter = new TopRatedMovieAdapter(topRatedResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
             }
 
             @Override
-            public void onFailure(Call<PopularModel> call, Throwable t) {
+            public void onFailure(Call<TopRatedModel> call, Throwable t) {
                 t.printStackTrace();
             }
         });
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.popular_fragment, container, false);
-        recyclerView = v.findViewById(R.id.recycleView);
+        v = inflater.inflate(R.layout.top_rated_fragment, container, false);
+        recyclerView = v.findViewById(R.id.trRecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
-        return v;
+        return  v;
     }
 }
