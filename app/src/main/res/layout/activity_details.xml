@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".details.DetailsActivity"
+    android:scrollbars="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rootRelativeLayout"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgBackdropPath"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@android:color/darker_gray" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#59000000"></View>
+
+        <ImageView
+            android:id="@+id/imgPoster"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="110dp"
+            android:src="@android:color/background_dark" />
+        <TextView
+            android:id="@+id/mdReleaseDate"
+            android:textColor="@color/textWhite"
+            android:text="2019"
+            android:layout_below="@+id/imgBackdropPath"
+            android:layout_toRightOf="@id/imgPoster"
+            android:layout_marginLeft="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/textWhite"
+            android:id="@+id/mdDuration"
+            android:text="2 hrs 2 mins"
+            android:layout_toRightOf="@id/mdReleaseDate"
+            android:layout_below="@id/imgBackdropPath"
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/mdMovieTitle"
+            android:text="Movie title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textWhite"
+            android:layout_marginLeft="24dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_below="@id/mdReleaseDate"
+            android:layout_toRightOf="@+id/imgPoster"/>
+        <TextView
+            android:textColor="@color/textWhite"
+            android:id="@+id/mdGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre, genre, genre"
+            android:layout_below="@+id/mdMovieTitle"
+            android:layout_toRightOf="@+id/imgPoster"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="4dp"
+            android:paddingBottom="16dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/descriptionRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@id/rootRelativeLayout">
+        <TextView
+            android:id="@+id/mdDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="5"
+            android:ellipsize="end"
+            android:text="Test"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/factsRelLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DCDCDC"
+        android:padding="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Facts"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

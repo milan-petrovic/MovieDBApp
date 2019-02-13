@@ -5,13 +5,15 @@
     <color name="colorPrimaryDark">#0E3F66</color>
     <color name="colorAccent">#2196f3</color>
     <color name="secondaryVariant">#80C6FF</color>
+    <color name="rootColor">#35454D</color>
+    <color name="textWhite">#FFF</color>
     //red
     <!--<color name="colorPrimary">#8C251D</color>-->
     <!--<color name="colorPrimaryDark">#661B15</color>-->
     <!--<color name="colorAccent">#F44336</color>-->
     <!--<color name="secondaryVariant">#FF8880</color>-->
     //bluegray
-    <!--<color name="colorPrimary">#35454D</color>-->
+    <!--<color name="rootColor">#35454D</color>-->
     <!--<color name="colorPrimaryDark">#232E33</color>-->
     <!--<color name="colorAccent">#03A9F4</color>-->
     <!--<color name="secondaryVariant">#607D8B</color>-->

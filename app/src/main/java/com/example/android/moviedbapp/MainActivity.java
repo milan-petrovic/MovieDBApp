@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Add fragments
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(3);
+
         viewPagerAdapter.addFragment(new PopularFragment(), "Popular");
         viewPagerAdapter.addFragment(new TopRatedFragment(), "Top rated");
         viewPagerAdapter.addFragment(new UpcomingFragment(), "Upcoming");
-
-
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

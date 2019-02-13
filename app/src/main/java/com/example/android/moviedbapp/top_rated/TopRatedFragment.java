@@ -45,7 +45,7 @@ public class TopRatedFragment extends Fragment {
                     return;
                 }
                 List<TopRatedResult> topRatedTopRatedResults = response.body().getTopRatedResults();
-                adapter = new TopRatedMovieAdapter(topRatedTopRatedResults);
+                adapter = new TopRatedMovieAdapter(getActivity(), topRatedTopRatedResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
             }

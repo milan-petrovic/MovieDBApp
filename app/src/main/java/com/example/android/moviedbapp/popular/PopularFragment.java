@@ -47,7 +47,7 @@ public class PopularFragment extends Fragment {
                 }
                 List<PopularResult> moviePopularResults = response.body().getPopularResults();
 
-                adapter = new PopularMovieAdapter(moviePopularResults);
+                adapter = new PopularMovieAdapter(getActivity(), moviePopularResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
             }

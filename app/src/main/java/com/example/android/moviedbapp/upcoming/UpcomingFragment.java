@@ -28,16 +28,6 @@ public class UpcomingFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     View v;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.upcoming_fragment, container, false);
-        recyclerView = v.findViewById(R.id.upRecycleView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
-        return  v;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +46,9 @@ public class UpcomingFragment extends Fragment {
                     return;
                 }
                 List<UpcomingResult> upcomingResults = response.body().getResults();
-                adapter = new UpcomingMovieAdapter(upcomingResults);
+                adapter = new UpcomingMovieAdapter(getActivity(), upcomingResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
-
             }
 
             @Override
@@ -67,5 +56,15 @@ public class UpcomingFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.upcoming_fragment, container, false);
+        recyclerView = v.findViewById(R.id.upRecycleView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        return  v;
     }
 }
