@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/searchItemParent"
+    android:padding="4dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/searchPoster"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rlImage">
+
+        <TextView
+            android:id="@+id/searchMovieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Movie title"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/searchDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchMovieTitle"
+            android:ellipsize="end"
+            android:lines="2"
+            android:paddingRight="16dp"
+            android:text="Description" />
+
+        <TextView
+            android:id="@+id/searchRDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchDescription"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:text="Release Date" />
+
+        <RelativeLayout
+            android:id="@+id/relLayout"
+            android:paddingTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchDescription"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/searchVoteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="vote count" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
