@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.viewPagerId);
 
         //Add fragments
-
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new PopularFragment(), "Popular");
         viewPagerAdapter.addFragment(new TopRatedFragment(), "Top rated");
