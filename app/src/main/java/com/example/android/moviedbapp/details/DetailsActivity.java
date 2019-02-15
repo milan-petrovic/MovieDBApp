@@ -23,7 +23,14 @@ public class DetailsActivity extends AppCompatActivity {
     TextView txtGenres;
     TextView txtMovieTitle;
     TextView txtMovieDescription;
-
+    TextView txtOriginalTitle;
+    TextView txtOriginalLanguage;
+    TextView txtBudget;
+    TextView txtHomepage;
+    TextView txtDetailAverage;
+    TextView txtDetailVoteCount;
+    TextView txtDetailPopularity;
+    //TextView txtReleases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,15 @@ public class DetailsActivity extends AppCompatActivity {
         txtGenres = (TextView) findViewById(R.id.mdGenres);
         txtMovieTitle = (TextView) findViewById(R.id.mdMovieTitle);
         txtMovieDescription = (TextView)findViewById(R.id.mdDescription);
+        txtOriginalTitle = (TextView)findViewById(R.id.txtOriginaltitle);
+        txtOriginalLanguage = (TextView)findViewById(R.id.txtOriginalLanguage);
+        txtBudget = (TextView)findViewById(R.id.txtBudget);
+        txtHomepage = (TextView)findViewById(R.id.txtHomepage);
+        txtDetailAverage = (TextView)findViewById(R.id.detailVoteAverage);
+        txtDetailVoteCount = (TextView)findViewById(R.id.detailVoteCount);
+        txtDetailPopularity = (TextView)findViewById(R.id.detailPopularity);
+       // txtReleases = (TextView)findViewById(R.id.txtReleases);
+
 
 
         Bundle bundle = getIntent().getExtras();
@@ -60,6 +76,13 @@ public class DetailsActivity extends AppCompatActivity {
                     txtDuration.setText(String.valueOf(movieDetailsModel.getRuntime()));
                     txtMovieTitle.setText(movieDetailsModel.getTitle());
                     txtMovieDescription.setText(movieDetailsModel.getOverview());
+                    txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
+                    txtOriginalLanguage.setText(movieDetailsModel.getOriginalLanguage());
+                    txtBudget.setText("$" +String.valueOf(movieDetailsModel.getBudget()));
+                    txtHomepage.setText(movieDetailsModel.getHomepage());
+                    txtDetailVoteCount.setText(String.valueOf(movieDetailsModel.getVoteCount()));
+                    txtDetailAverage.setText(String.valueOf(movieDetailsModel.getVoteAverage()));
+                    txtDetailPopularity.setText(String.valueOf(movieDetailsModel.getPopularity()));
                     String posterUrl ="https://image.tmdb.org/t/p/w500/" + movieDetailsModel.getPosterPath();
                     Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
                     String backDropUrl ="https://image.tmdb.org/t/p/w500/" + movieDetailsModel.getBackdropPath();

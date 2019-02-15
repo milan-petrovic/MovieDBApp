@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".details.DetailsActivity"
     android:scrollbars="vertical">
+
 
     <RelativeLayout
         android:id="@+id/rootRelativeLayout"
@@ -73,6 +75,40 @@
             android:paddingBottom="16dp"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/relativeRates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/detailVoteAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_grade_black_24dp"
+            android:layout_marginRight="24dp"
+            android:text="vote average"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/detailVoteCount"
+            android:layout_toRightOf="@id/detailVoteAverage"
+            android:text="Count"
+            android:gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="24dp"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detailPopularity"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="32dp"
+            android:text="popularity"
+            android:drawableLeft="@drawable/ic_people_black_24dp"
+            android:layout_toRightOf="@+id/detailVoteCount"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/descriptionRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,19 +122,108 @@
             android:ellipsize="end"
             android:text="Test"/>
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/factsRelLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#DCDCDC"
-        android:padding="8dp">
+        android:padding="16dp">
         <TextView
+            android:id="@+id/txtFacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16dp"
             android:text="Facts"/>
+
+        <TextView
+            android:id="@+id/textOriginaltitle"
+            android:text="Original title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/txtFacts"/>
+        <TextView
+            android:id="@+id/txtOriginaltitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textOriginaltitle"
+            android:layout_marginRight="2dp"
+            android:text="title"/>
+
+        <TextView
+            android:id="@+id/textOriginalLanguage"
+            android:text="Original language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/txtOriginaltitle"/>
+
+        <TextView
+            android:id="@+id/txtOriginalLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textOriginalLanguage"
+            android:layout_marginRight="2dp"
+            android:text="title"/>
+
+        <TextView
+            android:id="@+id/textBudget"
+            android:text="Budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/txtOriginalLanguage"/>
+
+        <TextView
+            android:id="@+id/txtBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textBudget"
+            android:layout_marginRight="2dp"
+            android:text="budget"/>
+
+        <TextView
+            android:id="@+id/textHomepage"
+            android:text="Homepage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/txtBudget"/>
+        <TextView
+            android:id="@+id/txtHomepage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textHomepage"
+            android:layout_marginRight="2dp"
+            android:text="Homepage"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/textReleases"-->
+            <!--android:text="Releases"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_below="@id/txtHomepage"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/txtReleases"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/textReleases"-->
+            <!--android:layout_marginRight="2dp"-->
+            <!--android:text="Releases"/>-->
+
 
     </RelativeLayout>
 
 
-
+    </ScrollView>
 </LinearLayout>
