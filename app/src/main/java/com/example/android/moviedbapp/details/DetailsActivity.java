@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.R;
@@ -85,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
             call.enqueue(new Callback<MovieDetailsModel>() {
                 @Override
                 public void onResponse(Call<MovieDetailsModel> call, Response<MovieDetailsModel> response) {
+
                     if (!response.isSuccessful()) {
                         return;
                     }
@@ -94,7 +97,6 @@ public class DetailsActivity extends AppCompatActivity {
                     String genre = "";
                     for (Genre g : genres) {
                         genre = txtGenres.getText().toString();
-
                         if (TextUtils.isEmpty(genre)) {
                             genre = g.getName();
                             txtGenres.setText(genre);
@@ -102,7 +104,6 @@ public class DetailsActivity extends AppCompatActivity {
                             genre = genre + ", " + g.getName();
                             txtGenres.setText(genre);
                         }
-
                     }
                     String date = Util.getYearFromDate(movieDetailsModel.getReleaseDate());
                     txtDate.setText(" • " + date + " • ");
@@ -111,7 +112,7 @@ public class DetailsActivity extends AppCompatActivity {
                     txtMovieTitle.setText(movieDetailsModel.getTitle());
                     txtMovieDescription.setText(movieDetailsModel.getOverview());
                     txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
-                    txtOriginalLanguage.setText(movieDetailsModel.getOriginalLanguage());
+                    txtOriginalLanguage.setText(movieDetailsModel.getSpokenLanguages().get(0).getName());
                     txtBudget.setText("$" +String.valueOf(movieDetailsModel.getBudget()));
                     txtHomepage.setText(movieDetailsModel.getHomepage());
                     txtDetailVoteCount.setText(String.valueOf(movieDetailsModel.getVoteCount()));
