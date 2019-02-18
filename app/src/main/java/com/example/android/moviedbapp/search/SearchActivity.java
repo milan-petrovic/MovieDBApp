@@ -1,5 +1,6 @@
 package com.example.android.moviedbapp.search;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -56,8 +57,9 @@ public class SearchActivity extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                     return;
                 }
+
                 List<Result> searchResults = response.body().getResults();
-                adapter = new SearchMovieAdapter(searchResults);
+                adapter = new SearchMovieAdapter(SearchActivity.this, searchResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
             }

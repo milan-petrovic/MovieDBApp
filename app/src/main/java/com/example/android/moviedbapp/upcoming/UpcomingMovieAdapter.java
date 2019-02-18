@@ -59,7 +59,8 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         UpcomingResult upcomingResult = upcomingResults.get(i);
         movieViewHolder.txtTitle.setText(upcomingResult.getTitle());
-        movieViewHolder.txtReleaseDate.setText(upcomingResult.getReleaseDate());
+        String date = Util.getYearMonthDay(upcomingResult.getReleaseDate());
+        movieViewHolder.txtReleaseDate.setText(date);
         movieViewHolder.txtCountAverage.setText(String.valueOf(upcomingResult.getVoteAverage()));
         movieViewHolder.txtDescription.setText(upcomingResult.getOverview());
         String imageUrl="https://image.tmdb.org/t/p/w500/" + upcomingResult.getPosterPath();

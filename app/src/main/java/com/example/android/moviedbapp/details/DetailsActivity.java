@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView txtDetailAverage;
     TextView txtDetailVoteCount;
     TextView txtDetailPopularity;
+    LinearLayout linearLayout;
+    ProgressBar progressBar;
     //TextView txtReleases;
 
     @Override
@@ -46,6 +50,9 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+
+        linearLayout = (LinearLayout)findViewById(R.id.mainLayout);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         imgBackdrop = (ImageView)findViewById(R.id.imgBackdropPath);
         imgPoster = (ImageView)findViewById(R.id.imgPoster);
         txtDate = (TextView)findViewById(R.id.mdReleaseDate);
@@ -122,6 +129,8 @@ public class DetailsActivity extends AppCompatActivity {
                     Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
                     String backDropUrl ="https://image.tmdb.org/t/p/w500/" + movieDetailsModel.getBackdropPath();
                     Picasso.get().load(backDropUrl).fit().centerCrop().into(imgBackdrop);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
