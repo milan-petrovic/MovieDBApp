@@ -1,13 +1,20 @@
 package com.example.android.moviedbapp.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.R;
+import com.example.android.moviedbapp.Util;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +61,16 @@ public class DetailsActivity extends AppCompatActivity {
        // txtReleases = (TextView)findViewById(R.id.txtReleases);
 
 
+        txtHomepage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = txtHomepage.getText().toString();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -71,9 +88,26 @@ public class DetailsActivity extends AppCompatActivity {
                     if (!response.isSuccessful()) {
                         return;
                     }
+
                     MovieDetailsModel movieDetailsModel = response.body();
-                    txtDate.setText(movieDetailsModel.getReleaseDate());
-                    txtDuration.setText(String.valueOf(movieDetailsModel.getRuntime()));
+                    List<Genre> genres = movieDetailsModel.getGenres();
+                    String genre = "";
+                    for (Genre g : genres) {
+                        genre = txtGenres.getText().toString();
+
+                        if (TextUtils.isEmpty(genre)) {
+                            genre = g.getName();
+                            txtGenres.setText(genre);
+                        } else {
+                            genre = genre + ", " + g.getName();
+                            txtGenres.setText(genre);
+                        }
+
+                    }
+                    String date = Util.getYearFromDate(movieDetailsModel.getReleaseDate());
+                    txtDate.setText(" • " + date + " • ");
+                    String time = Util.convertRuntime(movieDetailsModel.getRuntime());
+                    txtDuration.setText(String.valueOf(time));
                     txtMovieTitle.setText(movieDetailsModel.getTitle());
                     txtMovieDescription.setText(movieDetailsModel.getOverview());
                     txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
@@ -96,6 +130,7 @@ public class DetailsActivity extends AppCompatActivity {
             });
         }
 
-
     }
+
+
 }

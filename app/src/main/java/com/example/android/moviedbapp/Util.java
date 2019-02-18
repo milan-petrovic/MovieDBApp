@@ -2,7 +2,9 @@ package com.example.android.moviedbapp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 public class Util {
 
@@ -18,4 +20,16 @@ public class Util {
         }
         return null;
     }
+
+    public static String convertRuntime(Integer time) {
+
+        int hours = time / 60;
+        int minutes = time % 60;
+
+        return hours + " hrs " + minutes + " mins" ;
+    }
+
+
+
+
 }

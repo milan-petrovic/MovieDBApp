@@ -9,7 +9,14 @@
     tools:context=".details.DetailsActivity"
     android:scrollbars="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rootRelativeLayout"
         android:background="@color/colorPrimary"
@@ -34,9 +41,12 @@
             android:layout_marginTop="110dp"
             android:src="@android:color/background_dark" />
         <TextView
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
             android:id="@+id/mdReleaseDate"
             android:textColor="@color/textWhite"
-            android:text="2019"
+            android:textStyle="bold"
+            android:text="2019 •"
             android:layout_below="@+id/imgBackdropPath"
             android:layout_toRightOf="@id/imgPoster"
             android:layout_marginLeft="24dp"
@@ -44,6 +54,8 @@
             android:layout_height="wrap_content" />
         <TextView
             android:textColor="@color/textWhite"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
             android:id="@+id/mdDuration"
             android:text="2 hrs 2 mins"
             android:layout_toRightOf="@id/mdReleaseDate"
@@ -59,7 +71,7 @@
             android:textColor="@color/textWhite"
             android:layout_marginLeft="24dp"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:layout_below="@id/mdReleaseDate"
             android:layout_toRightOf="@+id/imgPoster"/>
         <TextView
@@ -67,11 +79,12 @@
             android:id="@+id/mdGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genre, genre, genre"
+            tools:text="Genre, genre, genre"
             android:layout_below="@+id/mdMovieTitle"
             android:layout_toRightOf="@+id/imgPoster"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="4dp"
+            android:textSize="12sp"
             android:paddingBottom="16dp"/>
     </RelativeLayout>
     <RelativeLayout
@@ -79,6 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_below="@id/rootRelativeLayout"
         android:padding="16dp">
         <TextView
             android:id="@+id/detailVoteAverage"
@@ -113,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_below="@id/rootRelativeLayout">
+        android:layout_below="@id/relativeRates">
         <TextView
             android:id="@+id/mdDescription"
             android:layout_width="match_parent"
@@ -122,11 +136,10 @@
             android:ellipsize="end"
             android:text="Test"/>
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/factsRelLayout"
+        android:layout_below="@id/descriptionRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#DCDCDC"
@@ -202,6 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textHomepage"
             android:layout_marginRight="2dp"
+            android:textColor="@color/colorPrimary"
             android:text="Homepage"/>
 
         <!--<TextView-->
@@ -223,7 +237,6 @@
 
 
     </RelativeLayout>
-
-
+    </RelativeLayout>
     </ScrollView>
 </LinearLayout>
