@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.NetworkSourceData;
@@ -20,44 +21,40 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TopRatedFragment extends Fragment {
+public class TopRatedFragment extends Fragment implements TopRatedPresenter.View {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private View v;
+    private TopRatedPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
-        Call<TopRatedModel> call = movieApiHandler.getTopRated();
-        call.enqueue(new Callback<TopRatedModel>() {
-            @Override
-            public void onResponse(Call<TopRatedModel> call, Response<TopRatedModel> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-                List<TopRatedResult> topRatedTopRatedResults = response.body().getTopRatedResults();
-                adapter = new TopRatedMovieAdapter(getActivity(), topRatedTopRatedResults);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(layoutManager);
-            }
-
-            @Override
-            public void onFailure(Call<TopRatedModel> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+        presenter = new TopRatedPresenter();
+        presenter.setView(this);
+        presenter.getTopRatedMovies();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.top_rated_fragment, container, false);
+        View v = inflater.inflate(R.layout.top_rated_fragment, container, false);
         recyclerView = v.findViewById(R.id.trRecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         return  v;
+    }
+
+    @Override
+    public void displayTopRatedMovies(List<TopRatedResult> topRatedResults) {
+        adapter = new TopRatedMovieAdapter(getActivity(), topRatedResults);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(getActivity(), getString(R.string.problem_with_loading), Toast.LENGTH_SHORT).show();
     }
 }

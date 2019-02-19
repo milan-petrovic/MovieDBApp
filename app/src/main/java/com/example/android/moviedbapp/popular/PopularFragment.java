@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.NetworkSourceData;
@@ -20,34 +21,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PopularFragment extends Fragment {
+public class PopularFragment extends Fragment implements PopularPresenter.View {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private View view;
+    private PopularPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
-        Call<PopularModel> call = movieApiHandler.getPopularMovies();
-        call.enqueue(new Callback<PopularModel>() {
-            @Override
-            public void onResponse(Call<PopularModel> call, Response<PopularModel> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-                List<PopularResult> moviePopularResults = response.body().getPopularResults();
-                adapter = new PopularMovieAdapter(getActivity(), moviePopularResults);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(layoutManager);
-            }
-
-            @Override
-            public void onFailure(Call<PopularModel> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+        presenter = new PopularPresenter(NetworkSourceData.getInstance().getRetrofit());
+        presenter.setView(this);
+        presenter.getPopularMovies();
     }
 
     @Nullable
@@ -58,5 +45,17 @@ public class PopularFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         return view;
+    }
+
+    @Override
+    public void displayPopularMovies(List<PopularResult> moviePopularResults) {
+        adapter = new PopularMovieAdapter(getActivity(), moviePopularResults);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(getActivity(), getString(R.string.problem_with_loading), Toast.LENGTH_SHORT).show();
     }
 }

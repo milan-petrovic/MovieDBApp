@@ -83,7 +83,6 @@ public class DetailsActivity extends AppCompatActivity {
             call.enqueue(new Callback<MovieDetailsModel>() {
                 @Override
                 public void onResponse(Call<MovieDetailsModel> call, Response<MovieDetailsModel> response) {
-
                     if (!response.isSuccessful()) {
                         return;
                     }
