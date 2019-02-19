@@ -21,7 +21,6 @@ public class SearchPresenter {
     }
 
     public void getSearchMovies(String query) {
-
         MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
         Call<SearchMovieModel> call = movieApiHandler.getSearchMovies(query);
         call.enqueue(new Callback<SearchMovieModel>() {

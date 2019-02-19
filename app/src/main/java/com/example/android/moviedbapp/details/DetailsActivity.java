@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.MovieApiHandler;
@@ -24,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements DetailsPresenter.View {
 
     private ImageView imgBackdrop;
     private ImageView imgPoster;
@@ -42,6 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView txtDetailPopularity;
     private LinearLayout linearLayout;
     private ProgressBar progressBar;
+    private DetailsPresenter detailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class DetailsActivity extends AppCompatActivity {
         txtDetailAverage = findViewById(R.id.detailVoteAverage);
         txtDetailVoteCount = findViewById(R.id.detailVoteCount);
         txtDetailPopularity = findViewById(R.id.detailPopularity);
+        detailsPresenter = new DetailsPresenter();
+        detailsPresenter.setView(this);
 
         txtHomepage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,54 +81,47 @@ public class DetailsActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            int id = bundle.getInt(Constants.MOVIE_ID);
-            MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
-            Call<MovieDetailsModel> call = movieApiHandler.getMovieDetails(String.valueOf(id));
-            call.enqueue(new Callback<MovieDetailsModel>() {
-                @Override
-                public void onResponse(Call<MovieDetailsModel> call, Response<MovieDetailsModel> response) {
-                    if (!response.isSuccessful()) {
-                        return;
-                    }
+            detailsPresenter.getMovieDetails(bundle.getInt(Constants.MOVIE_ID));
 
-                    MovieDetailsModel movieDetailsModel = response.body();
-                    List<Genre> genres = movieDetailsModel.getGenres();
-                    String genre = "";
-                    for (Genre g : genres) {
-                        genre = txtGenres.getText().toString();
-                        if (TextUtils.isEmpty(genre)) {
-                            genre = g.getName();
-                            txtGenres.setText(genre);
-                        } else {
-                            genre = genre + ", " + g.getName();
-                            txtGenres.setText(genre);
-                        }
-                    }
-
-                    txtDate.setText(Constants.SPACED_BULLET + Util.getYearFromDate(movieDetailsModel.getReleaseDate()) + Constants.SPACED_BULLET);
-                    txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
-                    txtMovieTitle.setText(movieDetailsModel.getTitle());
-                    txtMovieDescription.setText(movieDetailsModel.getOverview());
-                    txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
-                    txtOriginalLanguage.setText(movieDetailsModel.getSpokenLanguages().get(0).getName());
-                    txtBudget.setText(Constants.PRICE_SYMBOL + String.valueOf(movieDetailsModel.getBudget()));
-                    txtHomepage.setText(movieDetailsModel.getHomepage());
-                    txtDetailVoteCount.setText(String.valueOf(movieDetailsModel.getVoteCount()));
-                    txtDetailAverage.setText(String.valueOf(movieDetailsModel.getVoteAverage()));
-                    txtDetailPopularity.setText(String.valueOf(movieDetailsModel.getPopularity()));
-                    String posterUrl = Constants.POSTER_URL + movieDetailsModel.getPosterPath();
-                    Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
-                    String backDropUrl = Constants.BACKDROP_URL + movieDetailsModel.getBackdropPath();
-                    Picasso.get().load(backDropUrl).fit().centerCrop().into(imgBackdrop);
-                    linearLayout.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<MovieDetailsModel> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
         }
+    }
+
+    @Override
+    public void showMovieDetails(MovieDetailsModel movieDetailsModel, List<Genre> genres) {
+        String genre = "";
+        for (Genre g : genres) {
+            genre = txtGenres.getText().toString();
+            if (TextUtils.isEmpty(genre)) {
+                genre = g.getName();
+                txtGenres.setText(genre);
+            } else {
+                genre = genre + ", " + g.getName();
+                txtGenres.setText(genre);
+            }
+        }
+
+        txtDate.setText(Constants.SPACED_BULLET + Util.getYearFromDate(movieDetailsModel.getReleaseDate()) + Constants.SPACED_BULLET);
+        txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
+        txtMovieTitle.setText(movieDetailsModel.getTitle());
+        txtMovieDescription.setText(movieDetailsModel.getOverview());
+        txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
+        txtOriginalLanguage.setText(movieDetailsModel.getSpokenLanguages().get(0).getName());
+        txtBudget.setText(Constants.PRICE_SYMBOL + String.valueOf(movieDetailsModel.getBudget()));
+        txtHomepage.setText(movieDetailsModel.getHomepage());
+        txtDetailVoteCount.setText(String.valueOf(movieDetailsModel.getVoteCount()));
+        txtDetailAverage.setText(String.valueOf(movieDetailsModel.getVoteAverage()));
+        txtDetailPopularity.setText(String.valueOf(movieDetailsModel.getPopularity()));
+        String posterUrl = Constants.POSTER_URL + movieDetailsModel.getPosterPath();
+        Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
+        String backDropUrl = Constants.BACKDROP_URL + movieDetailsModel.getBackdropPath();
+        Picasso.get().load(backDropUrl).fit().centerCrop().into(imgBackdrop);
+        linearLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(this, getString(R.string.problem_with_loading), Toast.LENGTH_SHORT).show();
     }
 }
