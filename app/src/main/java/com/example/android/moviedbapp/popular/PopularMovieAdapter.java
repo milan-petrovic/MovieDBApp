@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
+import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
 import com.example.android.moviedbapp.details.DetailsActivity;
@@ -42,23 +42,19 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         PopularResult popularResult = popularResultList.get(i);
         movieViewHolder.txtTitle.setText(popularResult.getTitle());
         movieViewHolder.txtDescription.setText(popularResult.getOverview());
-        String date = Util.getYearFromDate(popularResult.getReleaseDate());
-        movieViewHolder.txtReleaseDate.setText(date);
+        movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(popularResult.getReleaseDate()));
         movieViewHolder.txtVoteCount.setText(String.valueOf(popularResult.getVoteCount()));
-        String imageUrl="https://image.tmdb.org/t/p/w500/" + popularResult.getPosterPath();
+        String imageUrl= Constants.POSTER_URL + popularResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
         movieViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("MOVIE_ID", popularResult.getId());
+                intent.putExtra(Constants.MOVIE_ID, popularResult.getId());
                 context.startActivity(intent);
-
             }
         });
-
-
     }
 
     @Override
@@ -75,13 +71,13 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         public TextView txtVoteCount;
         public MovieViewHolder(View itemView) {
             super(itemView);
-            txtTitle = (TextView)itemView.findViewById(R.id.movieTitle);
-            txtReleaseDate = (TextView)itemView.findViewById(R.id.rDate);
-            txtDescription = (TextView)itemView.findViewById(R.id.description);
-            txtVoteCount = (TextView)itemView.findViewById(R.id.voteCount);
+            txtTitle = itemView.findViewById(R.id.movieTitle);
+            txtReleaseDate = itemView.findViewById(R.id.rDate);
+            txtDescription = itemView.findViewById(R.id.description);
+            txtVoteCount = itemView.findViewById(R.id.voteCount);
             parentLayout = itemView.findViewById(R.id.popularItemParent);
 
-            imgPoster = (ImageView)itemView.findViewById(R.id.poster);
+            imgPoster = itemView.findViewById(R.id.poster);
         }
     }
 }

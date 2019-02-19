@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
 import com.example.android.moviedbapp.details.DetailsActivity;
@@ -19,7 +20,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.MovieViewHolder> {
-
 
     private Context context;
     private List<TopRatedResult> topRatedTopRatedResults;
@@ -33,13 +33,14 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         public ImageView imgPoster;
         public TextView txtReleaseDate;
         public MovieViewHolder(@NonNull View itemView) {
+
             super(itemView);
-            txtTitle = (TextView)itemView.findViewById(R.id.trMovieTitle);
-            txtDescription = (TextView)itemView.findViewById(R.id.trDescription);
-            txtCountAverage = (TextView)itemView.findViewById(R.id.trVoteAverage);
-            txtReleaseDate = (TextView)itemView.findViewById(R.id.trRDate);
-            imgPoster = (ImageView) itemView.findViewById(R.id.trPoster);
-            topRatedParent = (RelativeLayout)itemView.findViewById(R.id.topRatedParent);
+            txtTitle = itemView.findViewById(R.id.trMovieTitle);
+            txtDescription = itemView.findViewById(R.id.trDescription);
+            txtCountAverage = itemView.findViewById(R.id.trVoteAverage);
+            txtReleaseDate = itemView.findViewById(R.id.trRDate);
+            imgPoster = itemView.findViewById(R.id.trPoster);
+            topRatedParent = itemView.findViewById(R.id.topRatedParent);
         }
     }
 
@@ -58,24 +59,23 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+
         TopRatedResult topRatedResult = topRatedTopRatedResults.get(i);
         movieViewHolder.txtTitle.setText(topRatedResult.getTitle());
-        String date = Util.getYearFromDate(topRatedResult.getReleaseDate());
-        movieViewHolder.txtReleaseDate.setText(date);
+        movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(topRatedResult.getReleaseDate()));
         movieViewHolder.txtCountAverage.setText(String.valueOf(topRatedResult.getVoteAverage()));
         movieViewHolder.txtDescription.setText(topRatedResult.getOverview());
-        String imageUrl="https://image.tmdb.org/t/p/w500/" + topRatedResult.getPosterPath();
+        String imageUrl= Constants.POSTER_URL + topRatedResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
         movieViewHolder.topRatedParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("MOVIE_ID", topRatedResult.getId());
+                intent.putExtra(Constants.MOVIE_ID, topRatedResult.getId());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

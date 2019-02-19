@@ -1,15 +1,11 @@
 package com.example.android.moviedbapp.search;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.NetworkSourceData;
@@ -20,21 +16,18 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager layoutManager;
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        recyclerView = (RecyclerView)findViewById(R.id.searchRecycleView);
+        recyclerView = findViewById(R.id.searchRecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
 
@@ -43,8 +36,6 @@ public class SearchActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doQuery(query);
         }
-
-
     }
 
     public void doQuery(String query) {
@@ -56,12 +47,10 @@ public class SearchActivity extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                     return;
                 }
-
                 List<Result> searchResults = response.body().getResults();
                 adapter = new SearchMovieAdapter(SearchActivity.this, searchResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
-
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
 import com.example.android.moviedbapp.details.DetailsActivity;
@@ -32,13 +33,14 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         public ImageView imgPoster;
         public TextView txtReleaseDate;
         public MovieViewHolder(@NonNull View itemView) {
+
             super(itemView);
-            txtTitle = (TextView)itemView.findViewById(R.id.upMovieTitle);
-            txtDescription = (TextView)itemView.findViewById(R.id.upDescription);
-            txtCountAverage = (TextView)itemView.findViewById(R.id.upVoteAverage);
-            imgPoster = (ImageView)itemView.findViewById(R.id.upPoster);
-            txtReleaseDate = (TextView)itemView.findViewById(R.id.upRDate);
-            upcomingParent = (RelativeLayout)itemView.findViewById(R.id.upcomingParent);
+            txtTitle = itemView.findViewById(R.id.upMovieTitle);
+            txtDescription = itemView.findViewById(R.id.upDescription);
+            txtCountAverage = itemView.findViewById(R.id.upVoteAverage);
+            imgPoster = itemView.findViewById(R.id.upPoster);
+            txtReleaseDate = itemView.findViewById(R.id.upRDate);
+            upcomingParent = itemView.findViewById(R.id.upcomingParent);
         }
     }
 
@@ -57,24 +59,23 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+
         UpcomingResult upcomingResult = upcomingResults.get(i);
         movieViewHolder.txtTitle.setText(upcomingResult.getTitle());
-        String date = Util.getYearMonthDay(upcomingResult.getReleaseDate());
-        movieViewHolder.txtReleaseDate.setText(date);
+        movieViewHolder.txtReleaseDate.setText(Util.getYearMonthDay(upcomingResult.getReleaseDate()));
         movieViewHolder.txtCountAverage.setText(String.valueOf(upcomingResult.getVoteAverage()));
         movieViewHolder.txtDescription.setText(upcomingResult.getOverview());
-        String imageUrl="https://image.tmdb.org/t/p/w500/" + upcomingResult.getPosterPath();
+        String imageUrl= Constants.POSTER_URL + upcomingResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
         movieViewHolder.upcomingParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("MOVIE_ID", upcomingResult.getId());
+                intent.putExtra(Constants.MOVIE_ID, upcomingResult.getId());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

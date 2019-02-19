@@ -3,7 +3,6 @@ package com.example.android.moviedbapp;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -24,16 +23,15 @@ public class Util {
     }
 
     public static String convertRuntime(Integer time) {
-
         int hours = time / 60;
         int minutes = time % 60;
 
-        return hours + " hrs " + minutes + " mins" ;
+        return hours + " hrs " + minutes + " mins";
     }
 
     public static String getYearMonthDay(String sDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
+        Date date;
         try {
             date = sdf.parse(sDate);
             Calendar cal = Calendar.getInstance();
@@ -48,8 +46,5 @@ public class Util {
             e.printStackTrace();
         }
         return null;
-
     }
-
-
 }

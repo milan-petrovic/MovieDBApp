@@ -25,6 +25,4 @@ public class ApiKeyInterceptor  implements Interceptor {
                 .build();
         return original.newBuilder().url(url);
     }
-
-
 }

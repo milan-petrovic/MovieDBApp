@@ -19,21 +19,17 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PopularFragment extends Fragment {
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager layoutManager;
-    View v;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
-
         Call<PopularModel> call = movieApiHandler.getPopularMovies();
         call.enqueue(new Callback<PopularModel>() {
             @Override
@@ -42,7 +38,6 @@ public class PopularFragment extends Fragment {
                     return;
                 }
                 List<PopularResult> moviePopularResults = response.body().getPopularResults();
-
                 adapter = new PopularMovieAdapter(getActivity(), moviePopularResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
@@ -58,10 +53,10 @@ public class PopularFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.popular_fragment, container, false);
-        recyclerView = v.findViewById(R.id.recycleView);
+        view = inflater.inflate(R.layout.popular_fragment, container, false);
+        recyclerView = view.findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
-        return v;
+        return view;
     }
 }

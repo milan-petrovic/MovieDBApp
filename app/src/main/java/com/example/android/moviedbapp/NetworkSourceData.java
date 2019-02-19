@@ -1,9 +1,6 @@
 package com.example.android.moviedbapp;
 
-import android.util.Log;
-
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,7 +23,6 @@ public class NetworkSourceData {
 
     public OkHttpClient buildOkHttpClient() {
         return new OkHttpClient.Builder().addNetworkInterceptor(new ApiKeyInterceptor()).build();
-
     }
 
     public static NetworkSourceData getInstance() {
