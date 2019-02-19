@@ -11,15 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.android.moviedbapp.MovieApiHandler;
-import com.example.android.moviedbapp.NetworkSourceData;
 import com.example.android.moviedbapp.R;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UpcomingFragment extends Fragment implements UpcomingPresenter.View {
 

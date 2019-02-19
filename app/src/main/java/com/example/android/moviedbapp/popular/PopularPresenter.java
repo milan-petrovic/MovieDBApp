@@ -1,7 +1,6 @@
 package com.example.android.moviedbapp.popular;
 
 import com.example.android.moviedbapp.MovieApiHandler;
-import com.example.android.moviedbapp.NetworkSourceData;
 
 import java.util.List;
 

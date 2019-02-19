@@ -13,17 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.moviedbapp.Constants;
-import com.example.android.moviedbapp.MovieApiHandler;
-import com.example.android.moviedbapp.NetworkSourceData;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsPresenter.View {
 
@@ -82,12 +76,28 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             detailsPresenter.getMovieDetails(bundle.getInt(Constants.MOVIE_ID));
-
         }
     }
 
     @Override
-    public void showMovieDetails(MovieDetailsModel movieDetailsModel, List<Genre> genres) {
+    public void showProgress() {
+        linearLayout.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showMovieDescription(String overview) {
+        txtMovieDescription.setText(overview);
+    }
+
+    @Override
+    public void showMovieGengres(List<Genre> genres) {
         String genre = "";
         for (Genre g : genres) {
             genre = txtGenres.getText().toString();
@@ -99,25 +109,38 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
                 txtGenres.setText(genre);
             }
         }
+    }
 
-        txtDate.setText(Constants.SPACED_BULLET + Util.getYearFromDate(movieDetailsModel.getReleaseDate()) + Constants.SPACED_BULLET);
-        txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
-        txtMovieTitle.setText(movieDetailsModel.getTitle());
-        txtMovieDescription.setText(movieDetailsModel.getOverview());
+    @Override
+    public void showMovieFacts(MovieDetailsModel movieDetailsModel) {
         txtOriginalTitle.setText(movieDetailsModel.getOriginalTitle());
         txtOriginalLanguage.setText(movieDetailsModel.getSpokenLanguages().get(0).getName());
         txtBudget.setText(Constants.PRICE_SYMBOL + String.valueOf(movieDetailsModel.getBudget()));
         txtHomepage.setText(movieDetailsModel.getHomepage());
+    }
+
+    @Override
+    public void showMovieRates(MovieDetailsModel movieDetailsModel) {
         txtDetailVoteCount.setText(String.valueOf(movieDetailsModel.getVoteCount()));
         txtDetailAverage.setText(String.valueOf(movieDetailsModel.getVoteAverage()));
         txtDetailPopularity.setText(String.valueOf(movieDetailsModel.getPopularity()));
-        String posterUrl = Constants.POSTER_URL + movieDetailsModel.getPosterPath();
-        Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
-        String backDropUrl = Constants.BACKDROP_URL + movieDetailsModel.getBackdropPath();
-        Picasso.get().load(backDropUrl).fit().centerCrop().into(imgBackdrop);
-        linearLayout.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void showMovieMainDetails(MovieDetailsModel movieDetailsModel) {
+        txtDate.setText(Constants.SPACED_BULLET + Util.getYearFromDate(movieDetailsModel.getReleaseDate()) + Constants.SPACED_BULLET);
+        txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
+        txtMovieTitle.setText(movieDetailsModel.getTitle());
+    }
+
+    @Override
+    public void showMoviePoster(String posterUrl) {
+        Picasso.get().load(posterUrl).fit().centerCrop().into(imgPoster);
+    }
+
+    @Override
+    public void showMovieBackdrop(String backdropUrl) {
+        Picasso.get().load(backdropUrl).fit().centerCrop().into(imgBackdrop);
     }
 
     @Override

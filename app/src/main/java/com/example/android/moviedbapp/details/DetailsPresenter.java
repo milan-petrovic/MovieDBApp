@@ -1,13 +1,8 @@
 package com.example.android.moviedbapp.details;
 
-import android.text.TextUtils;
-import android.view.View;
-
 import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.NetworkSourceData;
-import com.example.android.moviedbapp.Util;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,6 +22,8 @@ public class DetailsPresenter {
     }
 
     public void getMovieDetails(int id) {
+        view.showProgress();
+
         MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
         Call<MovieDetailsModel> call = movieApiHandler.getMovieDetails(String.valueOf(id));
         call.enqueue(new Callback<MovieDetailsModel>() {
@@ -36,21 +33,37 @@ public class DetailsPresenter {
                     view.displayError();
                     return;
                 }
-                view.showMovieDetails(response.body(), response.body().getGenres());
-
+                MovieDetailsModel movieDetails = response.body();
+                view.showMovieMainDetails(movieDetails);
+                view.showMovieGengres(movieDetails.getGenres());
+                view.showMovieFacts(movieDetails);
+                view.showMovieRates(movieDetails);
+                view.showMoviePoster(Constants.POSTER_URL + movieDetails.getPosterPath());
+                view.showMovieBackdrop(Constants.BACKDROP_URL + movieDetails.getBackdropPath());
+                view.showMovieDescription(movieDetails.getOverview());
+                view.hideProgress();
             }
 
             @Override
             public void onFailure(Call<MovieDetailsModel> call, Throwable t) {
                 t.printStackTrace();
                 view.displayError();
+                view.hideProgress();
             }
         });
 
     }
 
     public interface View {
-        void showMovieDetails(MovieDetailsModel movieDetailsModel, List<Genre> genres);
+        void showMoviePoster(String posterUrl);
+        void showMovieBackdrop(String backdropUrl);
+        void showMovieRates(MovieDetailsModel movieDetailsModel);
+        void showMovieMainDetails(MovieDetailsModel movieDetailsModel);
+        void showMovieDescription(String overview);
+        void showMovieGengres(List<Genre> genres);
+        void showMovieFacts(MovieDetailsModel movieDetailsModel);
+        void showProgress();
+        void hideProgress();
         void displayError();
     }
 }
