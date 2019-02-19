@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -119,7 +118,8 @@
                     android:paddingLeft="16dp"
                     android:paddingTop="16dp"
                     android:paddingRight="16dp"
-                    android:paddingBottom="8dp">
+                    android:paddingBottom="8dp"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -148,7 +148,6 @@
                             android:id="@+id/detailVoteCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/detailVoteAverage"
                             android:drawableLeft="@drawable/ic_person_black_24dp"
                             android:drawablePadding="4dp"
                             android:gravity="center"
@@ -165,7 +164,6 @@
                             android:id="@+id/detailPopularity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/detailVoteCount"
                             android:drawableLeft="@drawable/ic_people_black_24dp"
                             android:drawablePadding="4dp"
                             android:gravity="center"
@@ -193,7 +191,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/factsRelLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/descriptionRelativeLayout"

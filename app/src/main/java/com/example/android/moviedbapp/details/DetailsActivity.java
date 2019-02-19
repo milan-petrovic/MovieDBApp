@@ -63,14 +63,11 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.setView(this);
 
-        txtHomepage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = txtHomepage.getText().toString();
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
+        txtHomepage.setOnClickListener(v -> {
+            String url = txtHomepage.getText().toString();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         });
 
         Bundle bundle = getIntent().getExtras();

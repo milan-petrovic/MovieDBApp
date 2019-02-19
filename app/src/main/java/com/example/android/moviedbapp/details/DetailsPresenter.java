@@ -51,7 +51,6 @@ public class DetailsPresenter {
                 view.hideProgress();
             }
         });
-
     }
 
     public interface View {
