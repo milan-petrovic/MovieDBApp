@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.moviedbapp.MovieApiHandler;
+import com.example.android.moviedbapp.NetworkSourceData;
 import com.example.android.moviedbapp.R;
 
 import java.util.List;
@@ -31,12 +32,7 @@ public class TopRatedFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
+        MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
         Call<TopRatedModel> call = movieApiHandler.getTopRated();
         call.enqueue(new Callback<TopRatedModel>() {
             @Override

@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.example.android.moviedbapp.MovieApiHandler;
+import com.example.android.moviedbapp.NetworkSourceData;
 import com.example.android.moviedbapp.R;
 
 import java.util.List;
@@ -25,16 +28,12 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    Retrofit retrofit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         recyclerView = (RecyclerView)findViewById(R.id.searchRecycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -49,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void doQuery(String query) {
-        MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
+        MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
         Call<SearchMovieModel> call = movieApiHandler.getSearchMovies(query);
         call.enqueue(new Callback<SearchMovieModel>() {
             @Override
@@ -62,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 adapter = new SearchMovieAdapter(SearchActivity.this, searchResults);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(layoutManager);
+
             }
 
             @Override

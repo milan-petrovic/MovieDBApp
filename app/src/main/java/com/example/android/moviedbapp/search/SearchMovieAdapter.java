@@ -76,7 +76,6 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

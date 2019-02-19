@@ -43,7 +43,6 @@ public class Util {
             int day = cal.get(Calendar.DAY_OF_MONTH);
             DateFormatSymbols symbols = new DateFormatSymbols(Locale.ENGLISH);
             String[] monthNames = symbols.getMonths();
-
             return day + " " + monthNames[month] + " " + year;
         } catch (ParseException e) {
             e.printStackTrace();

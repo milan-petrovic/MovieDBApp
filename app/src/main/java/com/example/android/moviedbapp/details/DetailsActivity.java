@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.moviedbapp.MovieApiHandler;
+import com.example.android.moviedbapp.NetworkSourceData;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
 import com.squareup.picasso.Picasso;
@@ -84,12 +85,7 @@ public class DetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int id = bundle.getInt("MOVIE_ID");
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            MovieApiHandler movieApiHandler = retrofit.create(MovieApiHandler.class);
+            MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
             Call<MovieDetailsModel> call = movieApiHandler.getMovieDetails(String.valueOf(id));
             call.enqueue(new Callback<MovieDetailsModel>() {
                 @Override
