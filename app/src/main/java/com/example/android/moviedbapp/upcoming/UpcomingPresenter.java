@@ -21,7 +21,6 @@ public class UpcomingPresenter {
     }
 
     public void getUpcomingMovies() {
-
         MovieApiHandler movieApiHandler = NetworkSourceData.getInstance().getRetrofit().create(MovieApiHandler.class);
         Call<UpcomingMovieModel> call = movieApiHandler.getUpcomingMovies();
         call.enqueue(new Callback<UpcomingMovieModel>() {
@@ -39,7 +38,6 @@ public class UpcomingPresenter {
                 view.displayError();
             }
         });
-
     }
 
     public interface View {

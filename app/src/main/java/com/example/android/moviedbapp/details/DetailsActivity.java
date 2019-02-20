@@ -47,6 +47,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.setView(this);
 
