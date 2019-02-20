@@ -19,47 +19,34 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailsActivity extends AppCompatActivity implements DetailsPresenter.View {
 
-    private ImageView imgBackdrop;
-    private ImageView imgPoster;
-    private TextView txtDate;
-    private TextView txtDuration;
-    private TextView txtGenres;
-    private TextView txtMovieTitle;
-    private TextView txtMovieDescription;
-    private TextView txtOriginalTitle;
-    private TextView txtOriginalLanguage;
-    private TextView txtBudget;
-    private TextView txtHomepage;
-    private TextView txtDetailAverage;
-    private TextView txtDetailVoteCount;
-    private TextView txtDetailPopularity;
-    private LinearLayout linearLayout;
-    private ProgressBar progressBar;
+    @BindView(R.id.imgBackdropPath) ImageView imgBackdrop;
+    @BindView(R.id.imgPoster) ImageView imgPoster;
+    @BindView(R.id.mdReleaseDate) TextView txtDate;
+    @BindView(R.id.mdDuration) TextView txtDuration;
+    @BindView(R.id.mdGenres) TextView txtGenres;
+    @BindView(R.id.mdMovieTitle) TextView txtMovieTitle;
+    @BindView(R.id.mdDescription) TextView txtMovieDescription;
+    @BindView(R.id.txtOriginaltitle) TextView txtOriginalTitle;
+    @BindView(R.id.txtOriginalLanguage) TextView txtOriginalLanguage;
+    @BindView(R.id.txtBudget) TextView txtBudget;
+    @BindView(R.id.txtHomepage) TextView txtHomepage;
+    @BindView(R.id.detailVoteAverage) TextView txtDetailAverage;
+    @BindView(R.id.detailVoteCount) TextView txtDetailVoteCount;
+    @BindView(R.id.detailPopularity) TextView txtDetailPopularity;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.mainLayout) LinearLayout linearLayout;
     private DetailsPresenter detailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
-        linearLayout = findViewById(R.id.mainLayout);
-        progressBar = findViewById(R.id.progressBar);
-        imgBackdrop = findViewById(R.id.imgBackdropPath);
-        imgPoster = findViewById(R.id.imgPoster);
-        txtDate = findViewById(R.id.mdReleaseDate);
-        txtDuration = findViewById(R.id.mdDuration);
-        txtGenres = findViewById(R.id.mdGenres);
-        txtMovieTitle = findViewById(R.id.mdMovieTitle);
-        txtMovieDescription = findViewById(R.id.mdDescription);
-        txtOriginalTitle = findViewById(R.id.txtOriginaltitle);
-        txtOriginalLanguage = findViewById(R.id.txtOriginalLanguage);
-        txtBudget = findViewById(R.id.txtBudget);
-        txtHomepage = findViewById(R.id.txtHomepage);
-        txtDetailAverage = findViewById(R.id.detailVoteAverage);
-        txtDetailVoteCount = findViewById(R.id.detailVoteCount);
-        txtDetailPopularity = findViewById(R.id.detailPopularity);
+        ButterKnife.bind(this);
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.setView(this);
 

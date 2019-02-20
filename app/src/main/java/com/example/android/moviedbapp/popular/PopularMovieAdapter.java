@@ -19,6 +19,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.MovieViewHolder> {
 
     private List<PopularResult> popularResultList;
@@ -63,21 +66,16 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout parentLayout;
-        public ImageView imgPoster;
-        public TextView txtTitle;
-        public TextView txtDescription;
-        public TextView txtReleaseDate;
-        public TextView txtVoteCount;
+        @BindView(R.id.popularItemParent) RelativeLayout parentLayout;
+        @BindView(R.id.poster) ImageView imgPoster;
+        @BindView(R.id.movieTitle) TextView txtTitle;
+        @BindView(R.id.description) TextView txtDescription;
+        @BindView(R.id.rDate) TextView txtReleaseDate;
+        @BindView(R.id.voteCount) TextView txtVoteCount;
+
         public MovieViewHolder(View itemView) {
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.movieTitle);
-            txtReleaseDate = itemView.findViewById(R.id.rDate);
-            txtDescription = itemView.findViewById(R.id.description);
-            txtVoteCount = itemView.findViewById(R.id.voteCount);
-            parentLayout = itemView.findViewById(R.id.popularItemParent);
-
-            imgPoster = itemView.findViewById(R.id.poster);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

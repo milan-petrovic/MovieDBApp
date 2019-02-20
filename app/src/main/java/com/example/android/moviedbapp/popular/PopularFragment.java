@@ -16,9 +16,12 @@ import com.example.android.moviedbapp.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PopularFragment extends Fragment implements PopularPresenter.View {
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycleView) RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private View view;
@@ -36,7 +39,7 @@ public class PopularFragment extends Fragment implements PopularPresenter.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.popular_fragment, container, false);
-        recyclerView = view.findViewById(R.id.recycleView);
+        ButterKnife.bind(this, view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         return view;
