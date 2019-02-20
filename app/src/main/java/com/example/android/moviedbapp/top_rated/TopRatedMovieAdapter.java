@@ -21,13 +21,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.MovieViewHolder> {
 
     private Context context;
-    private List<TopRatedResult> topRatedTopRatedResults;
+    private List<TopRatedResult> topRatedResults;
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.topRatedParent) RelativeLayout topRatedParent;
         @BindView(R.id.trMovieTitle) TextView txtTitle;
         @BindView(R.id.trDescription) TextView txtDescription;
@@ -39,10 +40,18 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        @OnClick(R.id.topRatedParent)
+        public void onMovieClick() {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, topRatedResults.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
+        }
+
     }
 
     public TopRatedMovieAdapter(Context context, List<TopRatedResult> topRatedTopRatedResults) {
-        this.topRatedTopRatedResults = topRatedTopRatedResults;
+        this.topRatedResults = topRatedTopRatedResults;
         this.context = context;
     }
 
@@ -56,23 +65,17 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        TopRatedResult topRatedResult = topRatedTopRatedResults.get(i);
+        TopRatedResult topRatedResult = topRatedResults.get(i);
         movieViewHolder.txtTitle.setText(topRatedResult.getTitle());
         movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(topRatedResult.getReleaseDate()));
         movieViewHolder.txtCountAverage.setText(String.valueOf(topRatedResult.getVoteAverage()));
         movieViewHolder.txtDescription.setText(topRatedResult.getOverview());
         String imageUrl= Constants.POSTER_URL + topRatedResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
-
-        movieViewHolder.topRatedParent.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra(Constants.MOVIE_ID, topRatedResult.getId());
-            context.startActivity(intent);
-        });
     }
 
     @Override
     public int getItemCount() {
-        return topRatedTopRatedResults.size();
+        return topRatedResults.size();
     }
 }

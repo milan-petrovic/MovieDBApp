@@ -21,13 +21,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.MovieViewHolder> {
 
     private Context context;
     private List<UpcomingResult> upcomingResults;
 
-    public class  MovieViewHolder extends RecyclerView.ViewHolder  {
+    public class MovieViewHolder extends RecyclerView.ViewHolder  {
         @BindView(R.id.upcomingParent) RelativeLayout upcomingParent;
         @BindView(R.id.upMovieTitle) TextView txtTitle;
         @BindView(R.id.upDescription) TextView txtDescription;
@@ -38,6 +39,13 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick(R.id.upcomingParent)
+        public void onMovieClick() {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, upcomingResults.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
         }
     }
 
@@ -63,12 +71,6 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         movieViewHolder.txtDescription.setText(upcomingResult.getOverview());
         String imageUrl= Constants.POSTER_URL + upcomingResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
-
-        movieViewHolder.upcomingParent.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra(Constants.MOVIE_ID, upcomingResult.getId());
-            context.startActivity(intent);
-        });
     }
 
     @Override

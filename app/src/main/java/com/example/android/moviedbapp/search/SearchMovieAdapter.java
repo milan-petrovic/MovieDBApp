@@ -21,13 +21,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.MovieViewHolder>{
 
     private List<Result> searchResults;
     private Context context;
+    private Result result;
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.searchPoster) ImageView imgPoster;
         @BindView(R.id.searchItemParent) RelativeLayout parentLayout;
@@ -46,6 +48,13 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
             parentLayout = itemView.findViewById(R.id.searchItemParent);
             imgPoster = itemView.findViewById(R.id.searchPoster);
         }
+
+        @OnClick(R.id.searchItemParent)
+        public void onClickMovie() {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, searchResults.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
+        }
     }
 
     public SearchMovieAdapter(Context context, List<Result> searchResults) {
@@ -63,7 +72,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        Result result = searchResults.get(i);
+        result = searchResults.get(i);
         movieViewHolder.txtTitle.setText(result.getTitle());
         movieViewHolder.txtDescription.setText(result.getOverview());
         movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(result.getReleaseDate()));
@@ -71,12 +80,8 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         String imageUrl= Constants.POSTER_URL + result.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
-        movieViewHolder.parentLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra(Constants.MOVIE_ID, result.getId());
-            context.startActivity(intent);
-        });
     }
+
 
     @Override
     public int getItemCount() {

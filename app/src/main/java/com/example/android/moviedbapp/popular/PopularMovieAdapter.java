@@ -21,11 +21,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.MovieViewHolder> {
 
     private List<PopularResult> popularResultList;
     private Context context;
+    private PopularResult popularResult;
+
 
     public PopularMovieAdapter(Context context, List<PopularResult> resultsList) {
         this.context = context;
@@ -42,7 +45,7 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        PopularResult popularResult = popularResultList.get(i);
+        popularResult = popularResultList.get(i);
         movieViewHolder.txtTitle.setText(popularResult.getTitle());
         movieViewHolder.txtDescription.setText(popularResult.getOverview());
         movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(popularResult.getReleaseDate()));
@@ -50,11 +53,6 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         String imageUrl= Constants.POSTER_URL + popularResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
-        movieViewHolder.parentLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra(Constants.MOVIE_ID, popularResult.getId());
-            context.startActivity(intent);
-        });
     }
 
     @Override
@@ -62,7 +60,7 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         return popularResultList.size();
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.popularItemParent) RelativeLayout parentLayout;
         @BindView(R.id.poster) ImageView imgPoster;
         @BindView(R.id.movieTitle) TextView txtTitle;
@@ -73,6 +71,13 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         public MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+        }
+
+        @OnClick(R.id.popularItemParent) public void onMovieClick() {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, popularResultList.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
         }
     }
 }

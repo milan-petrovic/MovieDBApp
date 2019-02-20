@@ -101,7 +101,9 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     @Override
     public void showMovieMainDetails(MovieDetailsModel movieDetailsModel) {
         txtDate.setText(Constants.SPACED_BULLET + Util.getYearFromDate(movieDetailsModel.getReleaseDate()) + Constants.SPACED_BULLET);
-        txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
+        if (movieDetailsModel.getRuntime() != null) {
+            txtDuration.setText(String.valueOf(Util.convertRuntime(movieDetailsModel.getRuntime())));
+        }
         txtMovieTitle.setText(movieDetailsModel.getTitle());
     }
 
