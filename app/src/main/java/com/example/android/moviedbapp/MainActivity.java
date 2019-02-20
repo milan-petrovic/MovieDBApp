@@ -14,10 +14,13 @@ import com.example.android.moviedbapp.popular.PopularFragment;
 import com.example.android.moviedbapp.top_rated.TopRatedFragment;
 import com.example.android.moviedbapp.upcoming.UpcomingFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    @BindView(R.id.tablayoutId) TabLayout tabLayout;
+    @BindView(R.id.viewPagerId) ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
 
@@ -25,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tabLayout = findViewById(R.id.tablayoutId);
-        viewPager = findViewById(R.id.viewPagerId);
+        ButterKnife.bind(this);
 
         //Add fragments
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

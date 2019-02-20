@@ -64,13 +64,10 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
         String imageUrl= Constants.POSTER_URL + topRatedResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
-        movieViewHolder.topRatedParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra(Constants.MOVIE_ID, topRatedResult.getId());
-                context.startActivity(intent);
-            }
+        movieViewHolder.topRatedParent.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, topRatedResult.getId());
+            context.startActivity(intent);
         });
     }
 

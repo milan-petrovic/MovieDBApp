@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TopRatedFragment extends Fragment implements TopRatedPresenter.View {
-
     @BindView(R.id.trRecycleView) RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;

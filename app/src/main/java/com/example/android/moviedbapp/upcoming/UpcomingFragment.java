@@ -15,12 +15,15 @@ import com.example.android.moviedbapp.R;
 
 import java.util.List;
 
-public class UpcomingFragment extends Fragment implements UpcomingPresenter.View {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private RecyclerView recyclerView;
+public class UpcomingFragment extends Fragment implements UpcomingPresenter.View {
+    @BindView(R.id.upRecycleView) RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private UpcomingPresenter presenter;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,11 +36,12 @@ public class UpcomingFragment extends Fragment implements UpcomingPresenter.View
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.upcoming_fragment, container, false);
-        recyclerView = v.findViewById(R.id.upRecycleView);
+        view = inflater.inflate(R.layout.upcoming_fragment, container, false);
+        ButterKnife.bind(this, view);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
-        return  v;
+        return  view;
     }
 
     @Override

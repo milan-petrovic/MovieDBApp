@@ -71,13 +71,10 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         String imageUrl= Constants.POSTER_URL + result.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
-        movieViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra(Constants.MOVIE_ID, result.getId());
-                context.startActivity(intent);
-            }
+        movieViewHolder.parentLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, result.getId());
+            context.startActivity(intent);
         });
     }
 

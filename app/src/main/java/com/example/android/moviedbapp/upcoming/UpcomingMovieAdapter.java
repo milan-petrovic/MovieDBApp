@@ -19,28 +19,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.MovieViewHolder> {
 
     private Context context;
     private List<UpcomingResult> upcomingResults;
 
     public class  MovieViewHolder extends RecyclerView.ViewHolder  {
+        @BindView(R.id.upcomingParent) RelativeLayout upcomingParent;
+        @BindView(R.id.upMovieTitle) TextView txtTitle;
+        @BindView(R.id.upDescription) TextView txtDescription;
+        @BindView(R.id.upVoteAverage) TextView txtCountAverage;
+        @BindView(R.id.upPoster) ImageView imgPoster;
+        @BindView(R.id.upRDate) TextView txtReleaseDate;
 
-        public RelativeLayout upcomingParent;
-        public TextView txtTitle;
-        public TextView txtDescription;
-        public TextView txtCountAverage;
-        public ImageView imgPoster;
-        public TextView txtReleaseDate;
         public MovieViewHolder(@NonNull View itemView) {
-
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.upMovieTitle);
-            txtDescription = itemView.findViewById(R.id.upDescription);
-            txtCountAverage = itemView.findViewById(R.id.upVoteAverage);
-            imgPoster = itemView.findViewById(R.id.upPoster);
-            txtReleaseDate = itemView.findViewById(R.id.upRDate);
-            upcomingParent = itemView.findViewById(R.id.upcomingParent);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -59,7 +56,6 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-
         UpcomingResult upcomingResult = upcomingResults.get(i);
         movieViewHolder.txtTitle.setText(upcomingResult.getTitle());
         movieViewHolder.txtReleaseDate.setText(Util.getYearMonthDay(upcomingResult.getReleaseDate()));
@@ -68,13 +64,10 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
         String imageUrl= Constants.POSTER_URL + upcomingResult.getPosterPath();
         Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgPoster);
 
-        movieViewHolder.upcomingParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra(Constants.MOVIE_ID, upcomingResult.getId());
-                context.startActivity(intent);
-            }
+        movieViewHolder.upcomingParent.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID, upcomingResult.getId());
+            context.startActivity(intent);
         });
     }
 
