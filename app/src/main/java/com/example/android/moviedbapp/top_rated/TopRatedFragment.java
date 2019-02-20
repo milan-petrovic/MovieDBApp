@@ -15,9 +15,12 @@ import com.example.android.moviedbapp.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TopRatedFragment extends Fragment implements TopRatedPresenter.View {
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.trRecycleView) RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private TopRatedPresenter presenter;
@@ -33,11 +36,12 @@ public class TopRatedFragment extends Fragment implements TopRatedPresenter.View
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.top_rated_fragment, container, false);
-        recyclerView = v.findViewById(R.id.trRecycleView);
+        View view = inflater.inflate(R.layout.top_rated_fragment, container, false);
+        ButterKnife.bind(this, view);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
-        return  v;
+        return  view;
     }
 
     @Override

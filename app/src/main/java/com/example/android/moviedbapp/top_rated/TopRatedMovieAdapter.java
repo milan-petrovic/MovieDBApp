@@ -19,28 +19,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdapter.MovieViewHolder> {
 
     private Context context;
     private List<TopRatedResult> topRatedTopRatedResults;
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.topRatedParent) RelativeLayout topRatedParent;
+        @BindView(R.id.trMovieTitle) TextView txtTitle;
+        @BindView(R.id.trDescription) TextView txtDescription;
+        @BindView(R.id.trVoteAverage) TextView txtCountAverage;
+        @BindView(R.id.trPoster) ImageView imgPoster;
+        @BindView(R.id.trRDate) TextView txtReleaseDate;
 
-        public RelativeLayout topRatedParent;
-        public TextView txtTitle;
-        public TextView txtDescription;
-        public TextView txtCountAverage;
-        public ImageView imgPoster;
-        public TextView txtReleaseDate;
         public MovieViewHolder(@NonNull View itemView) {
-
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.trMovieTitle);
-            txtDescription = itemView.findViewById(R.id.trDescription);
-            txtCountAverage = itemView.findViewById(R.id.trVoteAverage);
-            txtReleaseDate = itemView.findViewById(R.id.trRDate);
-            imgPoster = itemView.findViewById(R.id.trPoster);
-            topRatedParent = itemView.findViewById(R.id.topRatedParent);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -59,7 +56,6 @@ public class TopRatedMovieAdapter extends RecyclerView.Adapter<TopRatedMovieAdap
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-
         TopRatedResult topRatedResult = topRatedTopRatedResults.get(i);
         movieViewHolder.txtTitle.setText(topRatedResult.getTitle());
         movieViewHolder.txtReleaseDate.setText(Util.getYearFromDate(topRatedResult.getReleaseDate()));
