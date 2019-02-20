@@ -81,18 +81,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     }
 
     @Override
-    public void showMovieGengres(List<Genre> genres) {
-        String genre = "";
-        for (Genre g : genres) {
-            genre = txtGenres.getText().toString();
-            if (TextUtils.isEmpty(genre)) {
-                genre = g.getName();
-                txtGenres.setText(genre);
-            } else {
-                genre = genre + ", " + g.getName();
-                txtGenres.setText(genre);
-            }
-        }
+    public void showMovieGengres(String genre) {
+        txtGenres.setText(genre);
     }
 
     @Override

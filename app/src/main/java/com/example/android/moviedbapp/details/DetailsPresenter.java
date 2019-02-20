@@ -1,5 +1,7 @@
 package com.example.android.moviedbapp.details;
 
+import android.text.TextUtils;
+
 import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.MovieApiHandler;
 import com.example.android.moviedbapp.NetworkSourceData;
@@ -35,7 +37,8 @@ public class DetailsPresenter {
                 }
                 MovieDetailsModel movieDetails = response.body();
                 view.showMovieMainDetails(movieDetails);
-                view.showMovieGengres(movieDetails.getGenres());
+                String genre = genresFromList(movieDetails.getGenres());
+                view.showMovieGengres(genre);
                 view.showMovieFacts(movieDetails);
                 view.showMovieRates(movieDetails);
                 view.showMoviePoster(Constants.POSTER_URL + movieDetails.getPosterPath());
@@ -53,13 +56,25 @@ public class DetailsPresenter {
         });
     }
 
+    private String genresFromList(List<Genre> genres) {
+        String genre = "";
+        for (Genre g : genres) {
+            if (TextUtils.isEmpty(genre)) {
+                genre = g.getName();
+            } else {
+                genre = genre + ", " + g.getName();
+            }
+        }
+        return genre;
+    }
+
     public interface View {
         void showMoviePoster(String posterUrl);
         void showMovieBackdrop(String backdropUrl);
         void showMovieRates(MovieDetailsModel movieDetailsModel);
         void showMovieMainDetails(MovieDetailsModel movieDetailsModel);
         void showMovieDescription(String overview);
-        void showMovieGengres(List<Genre> genres);
+        void showMovieGengres(String genre);
         void showMovieFacts(MovieDetailsModel movieDetailsModel);
         void showProgress();
         void hideProgress();
