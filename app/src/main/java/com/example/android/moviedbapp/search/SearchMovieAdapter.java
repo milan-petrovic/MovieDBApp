@@ -19,6 +19,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.MovieViewHolder>{
 
     private List<Result> searchResults;
@@ -26,16 +29,16 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView imgPoster;
-        public RelativeLayout parentLayout;
-        public TextView txtTitle;
-        public TextView txtDescription;
-        public TextView txtReleaseDate;
-        public TextView txtVoteCount;
+        @BindView(R.id.searchPoster) ImageView imgPoster;
+        @BindView(R.id.searchItemParent) RelativeLayout parentLayout;
+        @BindView(R.id.searchMovieTitle) TextView txtTitle;
+        @BindView(R.id.searchDescription) TextView txtDescription;
+        @BindView(R.id.searchRDate) TextView txtReleaseDate;
+        @BindView(R.id.searchVoteCount) TextView txtVoteCount;
 
         public MovieViewHolder(View itemView) {
-
             super(itemView);
+            ButterKnife.bind(this,itemView);
             txtTitle = itemView.findViewById(R.id.searchMovieTitle);
             txtReleaseDate = itemView.findViewById(R.id.searchRDate);
             txtDescription = itemView.findViewById(R.id.searchDescription);

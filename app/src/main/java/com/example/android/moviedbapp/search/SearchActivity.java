@@ -12,9 +12,12 @@ import com.example.android.moviedbapp.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SearchActivity extends AppCompatActivity implements SearchPresenter.View {
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.searchRecycleView) RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private SearchPresenter presenter;
@@ -23,7 +26,9 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        recyclerView = findViewById(R.id.searchRecycleView);
+
+        ButterKnife.bind(this);
+
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
 
