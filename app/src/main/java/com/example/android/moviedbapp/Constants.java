@@ -11,6 +11,8 @@ public class Constants {
     public static final String PRICE_SYMBOL ="$";
     public static final String SPACED_BULLET = " • ";
     public static final String API_KEY = "ecfe957f81c6a84027d326ccd2cd19fd";
+    public static final String BASE_URL = "https://api.themoviedb.org/";
+    public static final String SHARE_MOVIE_LINK = "https://www.themoviedb.org/movie/";
 
     public static final int SCREEN_PAGE_LIMIT = 3;
 }

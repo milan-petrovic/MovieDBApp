@@ -3,7 +3,11 @@ package com.example.android.moviedbapp.details;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +41,11 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     @BindView(R.id.detailPopularity) TextView txtDetailPopularity;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.mainLayout) LinearLayout linearLayout;
+    private Intent shareIntent;
+    private Integer id;
+    private ShareActionProvider share;
+    private Bundle bundle;
+
     private DetailsPresenter detailsPresenter;
 
     @Override
@@ -55,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
             startActivity(i);
         });
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         if (bundle != null) {
             detailsPresenter.getMovieDetails(bundle.getInt(Constants.MOVIE_ID));
         }
@@ -120,5 +129,28 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     @Override
     public void displayError() {
         Toast.makeText(this, getString(R.string.problem_with_loading), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+        share = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.menu_item_share));
+        shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_MOVIE_LINK + bundle.getInt(Constants.MOVIE_ID));
+        shareIntent.setType("text/plain");
+        share.setShareIntent(shareIntent);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_item_share:
+                startActivity(shareIntent);
+                break;
+        }
+        return true;
     }
 }

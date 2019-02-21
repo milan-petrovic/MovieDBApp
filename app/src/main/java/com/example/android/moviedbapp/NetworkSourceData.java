@@ -15,7 +15,7 @@ public class NetworkSourceData {
 
     public void buildRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/")
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(buildOkHttpClient())
                 .build();
