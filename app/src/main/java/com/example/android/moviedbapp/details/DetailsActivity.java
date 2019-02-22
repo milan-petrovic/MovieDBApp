@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsPresenter.View {
 
@@ -42,7 +43,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.mainLayout) LinearLayout linearLayout;
     private Intent shareIntent;
-    private Integer id;
     private ShareActionProvider share;
     private Bundle bundle;
 
@@ -57,17 +57,18 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.setView(this);
 
-        txtHomepage.setOnClickListener(v -> {
-            String url = txtHomepage.getText().toString();
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-        });
-
         bundle = getIntent().getExtras();
         if (bundle != null) {
             detailsPresenter.getMovieDetails(bundle.getInt(Constants.MOVIE_ID));
         }
+    }
+
+    @OnClick(R.id.txtHomepage)
+    public void openMovieHomepage() {
+        String url = txtHomepage.getText().toString();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     @Override
@@ -136,9 +137,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         getMenuInflater().inflate(R.menu.menu_share, menu);
         share = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.menu_item_share));
         shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_MOVIE_LINK + bundle.getInt(Constants.MOVIE_ID));
-        shareIntent.setType("text/plain");
+        makeIntentShareable(shareIntent);
         share.setShareIntent(shareIntent);
 
         return super.onCreateOptionsMenu(menu);
@@ -152,5 +151,11 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
                 break;
         }
         return true;
+    }
+
+    public void makeIntentShareable(Intent intent) {
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, Constants.SHARE_MOVIE_LINK + bundle.getInt(Constants.MOVIE_ID));
+        intent.setType("text/plain");
     }
 }
