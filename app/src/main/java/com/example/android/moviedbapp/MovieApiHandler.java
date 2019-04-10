@@ -12,7 +12,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieApiHandler {
-
     @GET("3/movie/popular?language=en-US&page=1")
     Call<PopularModel> getPopularMovies();
     @GET("3/movie/top_rated?language=en-US&page=1")
@@ -23,6 +22,4 @@ public interface MovieApiHandler {
     Call<MovieDetailsModel> getMovieDetails(@Path("movie_id") String movieId);
     @GET("3/search/movie?language=en-US&query=&page=1&include_adult=false")
     Call<SearchMovieModel> getSearchMovies(@Query("query") String query);
-
-
 }

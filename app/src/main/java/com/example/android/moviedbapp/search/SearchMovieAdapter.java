@@ -41,12 +41,6 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         public MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            txtTitle = itemView.findViewById(R.id.searchMovieTitle);
-            txtReleaseDate = itemView.findViewById(R.id.searchRDate);
-            txtDescription = itemView.findViewById(R.id.searchDescription);
-            txtVoteCount = itemView.findViewById(R.id.searchVoteCount);
-            parentLayout = itemView.findViewById(R.id.searchItemParent);
-            imgPoster = itemView.findViewById(R.id.searchPoster);
         }
 
         @OnClick(R.id.searchItemParent)
