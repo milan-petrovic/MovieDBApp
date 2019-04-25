@@ -43,9 +43,11 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Movi
     public void onBindViewHolder(@NonNull CastMovieAdapter.MovieViewHolder movieViewHolder, int i) {
         movieCast = castResult.get(i);
         movieViewHolder.txtCastName.setText(movieCast.getName());
-        movieViewHolder.txtCastCharacter.setText("as " + movieCast.getCharacter());
-        String imageUrl = Constants.POSTER_URL + movieCast.getProfilePath();
-        Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgCastPoster);
+        movieViewHolder.txtCastCharacter.setText(movieCast.getCharacter());
+        if (movieCast.getProfilePath() != null) {
+            String imageUrl = Constants.POSTER_URL + movieCast.getProfilePath();
+            Picasso.get().load(imageUrl).fit().centerCrop().into(movieViewHolder.imgCastPoster);
+        }
     }
 
     @Override
