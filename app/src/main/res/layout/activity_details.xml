@@ -8,18 +8,30 @@
     android:scrollbars="vertical"
     tools:context=".details.DetailsActivity">
 
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        style="@style/ToolbarThemeMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/toolbarStyle"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:orientation="vertical"
         android:scrollbars="vertical"
         android:visibility="invisible">
@@ -46,6 +58,7 @@
                         android:src="@android:color/darker_gray" />
 
                     <View
+
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:background="#59000000"></View>
@@ -114,12 +127,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rootRelativeLayout"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingLeft="16dp"
                     android:paddingTop="16dp"
                     android:paddingRight="16dp"
-                    android:paddingBottom="8dp"
-                    android:baselineAligned="false">
+                    android:paddingBottom="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -179,7 +192,6 @@
                     android:paddingLeft="16dp"
                     android:paddingTop="8dp"
                     android:paddingRight="16dp"
-
                     android:paddingBottom="8dp">
 
                     <TextView
@@ -197,6 +209,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="0dp"
                     android:background="#DCDCDC"
+                    android:id="@+id/factsRelativeLayout"
                     android:padding="16dp">
 
                     <TextView
@@ -211,6 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtFacts"
+                        android:paddingBottom="8dp"
                         android:layout_marginTop="16dp"
                         android:text="Original title"
                         android:textStyle="bold" />
@@ -227,6 +241,7 @@
                         android:id="@+id/textOriginalLanguage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
                         android:layout_below="@id/txtOriginaltitle"
                         android:layout_marginTop="8dp"
                         android:text="Original language"
@@ -244,6 +259,7 @@
                         android:id="@+id/textBudget"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
                         android:layout_below="@id/txtOriginalLanguage"
                         android:layout_marginTop="8dp"
                         android:text="Budget"
@@ -263,6 +279,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtBudget"
                         android:layout_marginTop="8dp"
+                        android:paddingBottom="8dp"
+
                         android:text="Homepage"
                         android:textStyle="bold" />
 
@@ -274,10 +292,41 @@
                         android:layout_marginRight="2dp"
                         android:text="Homepage"
                         android:textColor="@color/colorPrimary" />
-
-
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:id="@+id/similarRelative"
+                    android:layout_below="@+id/factsRelativeLayout">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:id="@+id/txtSimilar"
+                        android:textSize="16dp"
+                        android:text="Similar movies"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/txtSimilar"
+                        android:padding="2dp"
+                        android:orientation="horizontal">
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_below="@id/txtSimilar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="horizontal"
+                            android:id="@+id/similarRecycleView">
+                        </android.support.v7.widget.RecyclerView>
+                    </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>
+
+
 </RelativeLayout>

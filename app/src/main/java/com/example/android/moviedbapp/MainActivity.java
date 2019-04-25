@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.tablayoutId) TabLayout tabLayout;
     @BindView(R.id.viewPagerId) ViewPager viewPager;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     private ViewPagerAdapter viewPagerAdapter;
 
 
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        toolbar.setTitle("MovieLand");
+        setSupportActionBar(toolbar);
 
         //Add fragments
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

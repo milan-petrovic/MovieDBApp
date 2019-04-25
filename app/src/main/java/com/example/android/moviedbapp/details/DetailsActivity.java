@@ -5,7 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.android.moviedbapp.Constants;
 import com.example.android.moviedbapp.R;
 import com.example.android.moviedbapp.Util;
+import com.example.android.moviedbapp.popular.PopularMovieAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -42,6 +47,10 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
     @BindView(R.id.detailPopularity) TextView txtDetailPopularity;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.mainLayout) LinearLayout linearLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.similarRecycleView) RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
     private Intent shareIntent;
     private ShareActionProvider share;
     private Bundle bundle;
@@ -54,9 +63,14 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         detailsPresenter = new DetailsPresenter();
         detailsPresenter.setView(this);
 
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         bundle = getIntent().getExtras();
         if (bundle != null) {
             detailsPresenter.getMovieDetails(bundle.getInt(Constants.MOVIE_ID));
@@ -99,6 +113,13 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
         txtOriginalLanguage.setText(movieDetailsModel.getSpokenLanguages().get(0).getName());
         txtBudget.setText(Constants.PRICE_SYMBOL + String.valueOf(movieDetailsModel.getBudget()));
         txtHomepage.setText(movieDetailsModel.getHomepage());
+    }
+
+    @Override
+    public void showSimilarMoviesMainDetails(SimilarMovies similarMovies) {
+        adapter = new SimilarMovieAdapter(this, similarMovies.getResults());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -149,6 +170,9 @@ public class DetailsActivity extends AppCompatActivity implements DetailsPresent
             case R.id.menu_item_share:
                 startActivity(shareIntent);
                 break;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
         return true;
     }

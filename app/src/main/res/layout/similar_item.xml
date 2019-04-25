@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:id="@+id/similarParent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/similarPoster"
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp" />
+    <TextView
+        android:id="@+id/similarMovieTitle"
+        android:paddingTop="8dp"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/similarPoster"
+
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="14sp"
+        android:text="Movie title"/>
+    <TextView
+        android:paddingTop="8dp"
+        android:id="@+id/similarYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/similarMovieTitle"
+        android:text="2019"/>
+</RelativeLayout>

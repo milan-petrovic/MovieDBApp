@@ -54,6 +54,26 @@ public class DetailsPresenter {
                 view.hideProgress();
             }
         });
+
+        Call<SimilarMovies> callSimilar = movieApiHandler.getSimilarMovies(String.valueOf(id));
+        callSimilar.enqueue(new Callback<SimilarMovies>() {
+            @Override
+            public void onResponse(Call<SimilarMovies> call, Response<SimilarMovies> response) {
+                if (!response.isSuccessful()) {
+                    view.displayError();
+                    return;
+                }
+                SimilarMovies similarMovies = response.body();
+                view.showSimilarMoviesMainDetails(similarMovies);
+            }
+            @Override
+            public void onFailure(Call<SimilarMovies> call, Throwable t) {
+                t.printStackTrace();
+                view.displayError();
+                view.hideProgress();
+            }
+        });
+
     }
 
     private String genresFromList(List<Genre> genres) {
@@ -76,8 +96,10 @@ public class DetailsPresenter {
         void showMovieDescription(String overview);
         void showMovieGengres(String genre);
         void showMovieFacts(MovieDetailsModel movieDetailsModel);
+        void showSimilarMoviesMainDetails(SimilarMovies similarMovies);
         void showProgress();
         void hideProgress();
         void displayError();
+
     }
 }
