@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/poster"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="125dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="16dp" />
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/movieTitle"
             android:ellipsize="end"
-            android:lines="2"
+            android:lines="3"
             android:paddingRight="16dp"
             android:text="Description" />
 
@@ -53,15 +53,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/description"
             android:gravity="center"
-            android:paddingTop="20dp"
+            android:paddingTop="30dp"
             android:text="Release Date" />
 
         <RelativeLayout
-            android:paddingTop="20dp"
+            android:paddingTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/description"
-            android:layout_marginLeft="4dp"
+            android:layout_marginRight="16dp"
             android:layout_alignParentRight="true">
 
             <TextView
