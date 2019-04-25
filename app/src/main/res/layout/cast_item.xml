@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:id="@+id/castParent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/castPoster"
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp" />
+    <TextView
+        android:id="@+id/castName"
+        android:paddingTop="8dp"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/castPoster"
+
+        android:ellipsize="end"
+        android:lines="2"
+        android:textSize="14sp"
+        android:textStyle="bold
+"
+        android:text="First name"/>
+    <TextView
+        android:paddingTop="8dp"
+        android:id="@+id/castCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/castName"
+        android:text="2019"/>
+</RelativeLayout>

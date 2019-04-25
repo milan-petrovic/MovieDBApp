@@ -1,5 +1,6 @@
 package com.example.android.moviedbapp;
 
+import com.example.android.moviedbapp.details.MovieCast;
 import com.example.android.moviedbapp.details.MovieDetailsModel;
 import com.example.android.moviedbapp.details.SimilarMovies;
 import com.example.android.moviedbapp.popular.PopularModel;
@@ -25,5 +26,8 @@ public interface MovieApiHandler {
     Call<SearchMovieModel> getSearchMovies(@Query("query") String query);
     @GET("3/movie/{movie_id}/similar?language=en-US&page=1")
     Call<SimilarMovies> getSimilarMovies(@Path("movie_id") String movieId);
+    @GET("3/movie/{movie_id}/credits?")
+    Call<MovieCast> getMovieCast(@Path("movie_id") String movieId);
+
 
 }

@@ -74,6 +74,24 @@ public class DetailsPresenter {
             }
         });
 
+        Call<MovieCast> callCast = movieApiHandler.getMovieCast(String.valueOf(id));
+        callCast.enqueue(new Callback<MovieCast>() {
+            @Override
+            public void onResponse(Call<MovieCast> call, Response<MovieCast> response) {
+                if (!response.isSuccessful()) {
+                    view.displayError();
+                    return;
+                }
+                MovieCast movieCast = response.body();
+                view.showMovieCast(movieCast);
+            }
+
+            @Override
+            public void onFailure(Call<MovieCast> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private String genresFromList(List<Genre> genres) {
@@ -100,6 +118,6 @@ public class DetailsPresenter {
         void showProgress();
         void hideProgress();
         void displayError();
-
+        void showMovieCast(MovieCast movieCast);
     }
 }
